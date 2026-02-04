@@ -1,0 +1,39 @@
+<div class="container">
+  <h2>Feedback Dashboard</h2>
+  
+  <div class="filter-section">
+    <label>Filter by Rating: </label>
+    <select [(ngModel)]="ratingFilter" (change)="applyFilter()">
+      <option value="All">All Ratings</option>
+      <option value="5">5 Stars</option>
+      <option value="4">4 Stars</option>
+      <option value="3">3 Stars</option>
+      <option value="2">2 Stars</option>
+      <option value="1">1 Star</option>
+    </select>
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Product</th>
+        <th>Customer</th>
+        <th>Rating</th>
+        <th>Comment</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of filteredFeedback">
+        <td>{{ item.productName }}</td>
+        <td>{{ item.customerName }}</td>
+        <td>{{ item.rating }} / 5</td>
+        <td>{{ item.comment }}</td>
+      </tr>
+      <tr *ngIf="filteredFeedback.length === 0">
+        <td colspan="4">No feedback found.</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  <a routerLink="/submit" class="btn">Submit New Feedback</a>
+</div>

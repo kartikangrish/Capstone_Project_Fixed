@@ -1,0 +1,18 @@
+<div class="login-container">
+  <h2>Login</h2>
+  <form (ngSubmit)="onLogin()">
+    <label>Username:</label>
+    <input type="text" [(ngModel)]="username" name="username" placeholder="Enter username" required>
+    
+    <label>Password:</label>
+    <input type="password" [(ngModel)]="password" name="password" placeholder="Any password works">
+    
+    <button type="submit">Log In</button>
+  </form>
+  
+  <div class="hint">
+    <p><strong>Demo Credentials:</strong></p>
+    <p>Admin View: username <code>admin</code></p>
+    <p>User View: username <code>user</code></p>
+  </div>
+</div>
