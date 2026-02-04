@@ -1,0 +1,24 @@
+
+
+services:
+  # Backend Service
+  backend:
+    build: ./feedback-backend
+    ports:
+      - "8080:8080"
+    networks:
+      - feedback-net
+
+  # Frontend Service
+  frontend:
+    build: ./feedback-frontend
+    ports:
+      - "4200:80" # Maps local port 4200 to container port 80
+    depends_on:
+      - backend
+    networks:
+      - feedback-net
+
+networks:
+  feedback-net:
+    driver: bridge

@@ -1,0 +1,18 @@
+# Angular
+node_modules/
+dist/
+.angular/
+
+# Java / Spring Boot
+target/
+*.class
+.mvn/wrapper/maven-wrapper.jar
+
+# IDEs
+.vscode/
+.idea/
+*.iml
+
+# OS
+.DS_Store
+Thumbs.db
