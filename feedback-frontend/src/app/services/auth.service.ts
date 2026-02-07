@@ -12,18 +12,25 @@ export class AuthService {
 
   constructor(private router: Router) {}
 
-  login(username: string): boolean {
-    let role: string | null = null;
+  /**
+   * Updated to accept 3 arguments to fix the TS2554 error.
+   * Implements the logic: admin/admin and user/user.
+   */
+  login(username: string, password: string, roleRequested: string): boolean {
+    let assignedRole: string | null = null;
 
-    if (username.toLowerCase() === 'admin') {
-      role = 'ADMIN';
-    } else if (username.toLowerCase() === 'user') {
-      role = 'USER';
+    // Logic: Admin role requires username 'admin' and password 'admin'
+    if (roleRequested === 'ADMIN' && username.toLowerCase() === 'admin' && password === 'admin') {
+      assignedRole = 'ADMIN';
+    } 
+    // Logic: User role requires username 'user' and password 'user'
+    else if (roleRequested === 'USER' && username.toLowerCase() === 'user' && password === 'user') {
+      assignedRole = 'USER';
     }
 
-    if (role) {
-      this.userRoleSubject.next(role);
-      localStorage.setItem('role', role);
+    if (assignedRole) {
+      this.userRoleSubject.next(assignedRole);
+      localStorage.setItem('role', assignedRole);
       // For evaluation: Storing a dummy token simulates real REST API behavior
       localStorage.setItem('token', 'dummy-jwt-token'); 
       return true;
@@ -46,7 +53,6 @@ export class AuthService {
     return this.getRole() === 'ADMIN';
   }
 
-  // FIXED: Added this method to resolve the TS2339 error
   isUser(): boolean {
     return this.getRole() === 'USER';
   }

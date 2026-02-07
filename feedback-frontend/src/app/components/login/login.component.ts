@@ -1,37 +1,40 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Router, RouterModule } from '@angular/router'; // Added RouterModule for navigation links
+import { Router, RouterModule } from '@angular/router'; 
 import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterModule], // Added RouterModule here
+  imports: [CommonModule, FormsModule, RouterModule],
   templateUrl: './login.component.html',
-  styleUrls: [] // Removed internal styles as we are using Bootstrap/Global CSS
+  styleUrls: [] 
 })
 export class LoginComponent {
+  // Properties bound to [(ngModel)] in your HTML
   username = '';
   password = ''; 
+  role = ''; // Fixes [ERROR] TS2339: Property 'role' does not exist
 
   constructor(private authService: AuthService, private router: Router) {}
 
   onLogin() {
-    // Logic for role-based redirection
-    const success = this.authService.login(this.username);
+    // 1. Logic for role-based authentication
+    // We pass username, password, and role to the service
+    const success = this.authService.login(this.username, this.password, this.role);
     
     if (success) {
-      if (this.authService.isAdmin()) {
+      // 2. Navigation based on the role logic you requested
+      if (this.role === 'ADMIN') {
         this.router.navigate(['/dashboard']);
       } else {
-        // Updated to 'feedback-form' to match our app.routes.ts path
         this.router.navigate(['/feedback-form']);
       }
     } else {
-      // For the 6 points in Global Exception Handling, 
-      // we'll eventually replace this alert with a professional UI toast.
-      alert('Invalid username! Try "admin" or "user".');
+      // 3. User feedback for invalid credentials
+      alert(`Invalid credentials for ${this.role} access! 
+      Hint: Use "admin/admin" for Admin or "user/user" for User.`);
     }
   }
 }

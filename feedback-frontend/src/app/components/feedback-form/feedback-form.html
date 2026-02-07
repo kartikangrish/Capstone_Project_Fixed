@@ -18,13 +18,20 @@
             <div class="row g-3 mb-4">
               <div class="col-md-6">
                 <label class="form-label small fw-bold text-uppercase text-muted">First Name</label>
-                <input type="text" class="form-control form-control-lg bg-light border-0" 
-                       [(ngModel)]="feedback.customer.firstName" name="firstName" required placeholder="Enter name">
+                <input type="text" class="form-control form-control-lg bg-light" 
+                       [ngClass]="{'is-invalid': firstName.invalid && firstName.touched, 'is-valid': firstName.valid && firstName.touched}"
+                       [(ngModel)]="feedback.customer.firstName" name="firstName" 
+                       #firstName="ngModel" required minlength="2" placeholder="Enter name">
+                <div class="invalid-feedback">First name is required (min 2 chars).</div>
               </div>
+
               <div class="col-md-6">
                 <label class="form-label small fw-bold text-uppercase text-muted">Email Address</label>
-                <input type="email" class="form-control form-control-lg bg-light border-0" 
-                       [(ngModel)]="feedback.customer.email" name="email" required email placeholder="email@maritime.com">
+                <input type="email" class="form-control form-control-lg bg-light" 
+                       [ngClass]="{'is-invalid': email.invalid && email.touched, 'is-valid': email.valid && email.touched}"
+                       [(ngModel)]="feedback.customer.email" name="email" 
+                       #email="ngModel" required email placeholder="email@maritime.com">
+                <div class="invalid-feedback">Please enter a valid email address.</div>
               </div>
             </div>
 
@@ -35,9 +42,12 @@
               <label class="form-label small fw-bold text-uppercase text-muted">Select Product/Service</label>
               <div class="input-group">
                 <span class="input-group-text bg-light border-0"><i class="bi bi-search"></i></span>
-                <input type="text" class="form-control form-control-lg bg-light border-0" 
-                       [(ngModel)]="feedback.product.name" name="productName" required placeholder="e.g., Radar System X1">
+                <input type="text" class="form-control form-control-lg bg-light" 
+                       [ngClass]="{'is-invalid': prodName.invalid && prodName.touched}"
+                       [(ngModel)]="feedback.product.name" name="productName" 
+                       #prodName="ngModel" required placeholder="e.g., Radar System X1">
               </div>
+              <div *ngIf="prodName.invalid && prodName.touched" class="text-danger small mt-1">Product name is required.</div>
             </div>
 
             <div class="mb-4 text-center py-3 rounded-3 bg-light">
@@ -53,9 +63,12 @@
 
             <div class="mb-4">
               <label class="form-label small fw-bold text-uppercase text-muted">Detailed Feedback</label>
-              <textarea class="form-control border-0 bg-light" 
-                        [(ngModel)]="feedback.comment" name="comment" rows="5" required 
+              <textarea class="form-control bg-light" 
+                        [ngClass]="{'is-invalid': comment.invalid && comment.touched}"
+                        [(ngModel)]="feedback.comment" name="comment" rows="5" 
+                        #comment="ngModel" required minlength="10"
                         placeholder="Please share your detailed experience with us..."></textarea>
+              <div class="invalid-feedback">Please provide at least 10 characters of feedback.</div>
             </div>
 
             <div class="d-grid gap-2">
