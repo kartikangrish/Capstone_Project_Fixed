@@ -1,6 +1,7 @@
-package com.example.feedback_backend;
+package com.example.feedback_backend.model;
 
 import java.time.LocalDateTime;
+
 import jakarta.persistence.CascadeType; // Added import
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

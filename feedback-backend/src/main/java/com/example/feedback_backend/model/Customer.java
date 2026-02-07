@@ -1,4 +1,4 @@
-package com.example.feedback_backend;
+package com.example.feedback_backend.model;
 
 import java.time.LocalDateTime;
 import jakarta.persistence.Entity;

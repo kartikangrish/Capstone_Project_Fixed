@@ -1,4 +1,4 @@
-package com.example.feedback_backend;
+package com.example.feedback_backend.model;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
